@@ -1,135 +1,401 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.12.3 on linux)" generated="2025-11-17T20:24:48.739753" rpa="false" schemaversion="5">
-<suite id="s1" name="Tests" source="/home/kuhville/Documents/OhTu/webcounter/webcounter/src/tests">
-<suite id="s1-s1" name="Increment" source="/home/kuhville/Documents/OhTu/webcounter/webcounter/src/tests/increment.robot">
+<robot generator="Robot 7.3.2 (Python 3.12.3 on linux)" generated="2025-11-17T21:47:43.167800" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/home/kuhville/Documents/OhTu/webcounter/src/tests">
+<suite id="s1-s1" name="Increment" source="/home/kuhville/Documents/OhTu/webcounter/src/tests/increment.robot">
 <kw name="Open And Configure Browser" owner="resource" type="SETUP">
+<if>
+<branch type="IF" condition="$BROWSER == 'chrome'">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-11-17T21:47:43.255133" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x7545278364b0&gt;</msg>
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-11-17T21:47:43.254887" elapsed="0.000280"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--incognito</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-11-17T21:47:43.255271" elapsed="0.000104"/>
+</kw>
+<status status="PASS" start="2025-11-17T21:47:43.254456" elapsed="0.000958"/>
+</branch>
+<branch type="ELSE IF" condition="$BROWSER == 'firefox'">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].FirefoxOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:43.255534" elapsed="0.000018"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--private-window</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:43.255611" elapsed="0.000016"/>
+</kw>
+<status status="NOT RUN" start="2025-11-17T21:47:43.255450" elapsed="0.000200"/>
+</branch>
+<status status="PASS" start="2025-11-17T21:47:43.254436" elapsed="0.001239"/>
+</if>
+<if>
+<branch type="IF" condition="$HEADLESS == 'true'">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>0.05 seconds</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:43.255856" elapsed="0.000023"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:43.255946" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2025-11-17T21:47:43.255715" elapsed="0.000274"/>
+</branch>
+<branch type="ELSE">
 <kw name="Set Selenium Speed" owner="SeleniumLibrary">
 <arg>${DELAY}</arg>
 <doc>Sets the delay that is waited after each Selenium command.</doc>
-<status status="PASS" start="2025-11-17T20:24:48.889024" elapsed="0.000322"/>
+<status status="PASS" start="2025-11-17T21:47:43.256069" elapsed="0.000184"/>
 </kw>
+<status status="PASS" start="2025-11-17T21:47:43.256011" elapsed="0.000274"/>
+</branch>
+<status status="PASS" start="2025-11-17T21:47:43.255704" elapsed="0.000603"/>
+</if>
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:48.889792" level="INFO">Opening browser 'chrome' to base url 'None'.</msg>
+<msg time="2025-11-17T21:47:43.256574" level="INFO">Opening browser 'chrome' to base url 'None'.</msg>
 <arg>browser=${BROWSER}</arg>
+<arg>options=${options}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2025-11-17T20:24:48.889541" elapsed="0.612803"/>
+<status status="PASS" start="2025-11-17T21:47:43.256379" elapsed="0.362012"/>
 </kw>
-<status status="PASS" start="2025-11-17T20:24:48.888358" elapsed="0.614244"/>
+<status status="PASS" start="2025-11-17T21:47:43.254294" elapsed="0.364256"/>
 </kw>
-<test id="s1-s1-t1" name="At start the counter is zero" line="7">
+<test id="s1-s1-t1" name="At start the counter is zero" line="8">
+<kw name="Go To" owner="SeleniumLibrary" type="SETUP">
+<msg time="2025-11-17T21:47:43.619328" level="INFO">Opening url 'http://localhost:5001/reset'</msg>
+<arg>${RESET_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-17T21:47:43.619135" elapsed="0.571834"/>
+</kw>
 <kw name="Go To" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:49.503945" level="INFO">Opening url 'http://localhost:5001'</msg>
+<msg time="2025-11-17T21:47:44.192775" level="INFO">Opening url 'http://localhost:5001'</msg>
 <arg>${HOME_URL}</arg>
 <doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2025-11-17T20:24:49.503514" elapsed="0.599071"/>
+<status status="PASS" start="2025-11-17T21:47:44.192068" elapsed="0.545232"/>
 </kw>
 <kw name="Title Should Be" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:50.617759" level="INFO">Page title is 'Laskuri'.</msg>
+<msg time="2025-11-17T21:47:45.252046" level="INFO">Page title is 'Laskuri'.</msg>
 <arg>Laskuri</arg>
 <doc>Verifies that the current page title equals ``title``.</doc>
-<status status="PASS" start="2025-11-17T20:24:50.104063" elapsed="0.514383"/>
+<status status="PASS" start="2025-11-17T21:47:44.738763" elapsed="0.513661"/>
 </kw>
 <kw name="Page Should Contain" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:51.655631" level="INFO">Current page contains text 'nappia painettu 0 kertaa'.</msg>
+<msg time="2025-11-17T21:47:46.279006" level="INFO">Current page contains text 'nappia painettu 0 kertaa'.</msg>
 <arg>nappia painettu 0 kertaa</arg>
 <doc>Verifies that current page contains ``text``.</doc>
-<status status="PASS" start="2025-11-17T20:24:50.619592" elapsed="1.036320"/>
+<status status="PASS" start="2025-11-17T21:47:45.253173" elapsed="1.026257"/>
 </kw>
-<status status="PASS" start="2025-11-17T20:24:49.502762" elapsed="2.153676"/>
+<status status="PASS" start="2025-11-17T21:47:43.618655" elapsed="2.661625"/>
 </test>
-<test id="s1-s1-t2" name="When button pressed twice the counter is two" line="12">
+<test id="s1-s1-t2" name="When button pressed twice the counter is two" line="13">
+<kw name="Go To" owner="SeleniumLibrary" type="SETUP">
+<msg time="2025-11-17T21:47:46.282803" level="INFO">Opening url 'http://localhost:5001/reset'</msg>
+<arg>${RESET_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-17T21:47:46.282310" elapsed="0.554660"/>
+</kw>
 <kw name="Go To" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:51.658392" level="INFO">Opening url 'http://localhost:5001'</msg>
+<msg time="2025-11-17T21:47:46.838696" level="INFO">Opening url 'http://localhost:5001'</msg>
 <arg>${HOME_URL}</arg>
 <doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2025-11-17T20:24:51.657992" elapsed="0.551961"/>
+<status status="PASS" start="2025-11-17T21:47:46.837998" elapsed="0.541617"/>
 </kw>
 <kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:52.213313" level="INFO">Clicking button 'Paina'.</msg>
+<msg time="2025-11-17T21:47:47.382079" level="INFO">Clicking button 'Paina'.</msg>
 <arg>Paina</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-17T20:24:52.211399" elapsed="2.170474"/>
+<status status="PASS" start="2025-11-17T21:47:47.380923" elapsed="2.159977"/>
 </kw>
 <kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:54.384452" level="INFO">Clicking button 'Paina'.</msg>
+<msg time="2025-11-17T21:47:49.542716" level="INFO">Clicking button 'Paina'.</msg>
 <arg>Paina</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-17T20:24:54.383415" elapsed="2.127513"/>
+<status status="PASS" start="2025-11-17T21:47:49.541869" elapsed="2.123567"/>
 </kw>
 <kw name="Page Should Contain" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:57.546711" level="INFO">Current page contains text 'nappia painettu 2 kertaa'.</msg>
+<msg time="2025-11-17T21:47:52.699121" level="INFO">Current page contains text 'nappia painettu 2 kertaa'.</msg>
 <arg>nappia painettu 2 kertaa</arg>
 <doc>Verifies that current page contains ``text``.</doc>
-<status status="PASS" start="2025-11-17T20:24:56.511843" elapsed="1.035331"/>
+<status status="PASS" start="2025-11-17T21:47:51.666840" elapsed="1.032723"/>
 </kw>
-<status status="PASS" start="2025-11-17T20:24:51.657130" elapsed="5.890995"/>
+<status status="PASS" start="2025-11-17T21:47:46.281258" elapsed="6.419562"/>
 </test>
 <kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2025-11-17T20:24:57.550150" elapsed="0.598704"/>
+<status status="PASS" start="2025-11-17T21:47:52.702579" elapsed="0.581138"/>
 </kw>
-<status status="PASS" start="2025-11-17T20:24:48.764792" elapsed="9.384205"/>
+<status status="PASS" start="2025-11-17T21:47:43.182577" elapsed="10.101204"/>
 </suite>
-<suite id="s1-s2" name="Reset" source="/home/kuhville/Documents/OhTu/webcounter/webcounter/src/tests/reset.robot">
+<suite id="s1-s2" name="Reset" source="/home/kuhville/Documents/OhTu/webcounter/src/tests/reset.robot">
 <kw name="Open And Configure Browser" owner="resource" type="SETUP">
+<if>
+<branch type="IF" condition="$BROWSER == 'chrome'">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-11-17T21:47:53.286088" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x7545278991f0&gt;</msg>
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-11-17T21:47:53.285898" elapsed="0.000214"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--incognito</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-11-17T21:47:53.286189" elapsed="0.000088"/>
+</kw>
+<status status="PASS" start="2025-11-17T21:47:53.285728" elapsed="0.000579"/>
+</branch>
+<branch type="ELSE IF" condition="$BROWSER == 'firefox'">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].FirefoxOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:53.286461" elapsed="0.000029"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--private-window</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:53.286552" elapsed="0.000015"/>
+</kw>
+<status status="NOT RUN" start="2025-11-17T21:47:53.286334" elapsed="0.000258"/>
+</branch>
+<status status="PASS" start="2025-11-17T21:47:53.285710" elapsed="0.000908"/>
+</if>
+<if>
+<branch type="IF" condition="$HEADLESS == 'true'">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>0.05 seconds</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:53.286799" elapsed="0.000018"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-11-17T21:47:53.286872" elapsed="0.000016"/>
+</kw>
+<status status="NOT RUN" start="2025-11-17T21:47:53.286659" elapsed="0.000251"/>
+</branch>
+<branch type="ELSE">
 <kw name="Set Selenium Speed" owner="SeleniumLibrary">
 <arg>${DELAY}</arg>
 <doc>Sets the delay that is waited after each Selenium command.</doc>
-<status status="PASS" start="2025-11-17T20:24:58.153730" elapsed="0.000403"/>
+<status status="PASS" start="2025-11-17T21:47:53.286990" elapsed="0.000360"/>
 </kw>
+<status status="PASS" start="2025-11-17T21:47:53.286931" elapsed="0.000452"/>
+</branch>
+<status status="PASS" start="2025-11-17T21:47:53.286647" elapsed="0.000760"/>
+</if>
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:58.154670" level="INFO">Opening browser 'chrome' to base url 'None'.</msg>
+<msg time="2025-11-17T21:47:53.287674" level="INFO">Opening browser 'chrome' to base url 'None'.</msg>
 <arg>browser=${BROWSER}</arg>
+<arg>options=${options}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2025-11-17T20:24:58.154357" elapsed="0.605188"/>
+<status status="PASS" start="2025-11-17T21:47:53.287485" elapsed="0.400906"/>
 </kw>
-<status status="PASS" start="2025-11-17T20:24:58.153358" elapsed="0.606336"/>
+<status status="PASS" start="2025-11-17T21:47:53.285576" elapsed="0.402986"/>
 </kw>
-<test id="s1-s2-t1" name="When counter has a nonzero value and it is reset the value becomes zero" line="7">
+<test id="s1-s2-t1" name="When counter has a nonzero value and it is reset the value becomes zero" line="8">
+<kw name="Go To" owner="SeleniumLibrary" type="SETUP">
+<msg time="2025-11-17T21:47:53.689325" level="INFO">Opening url 'http://localhost:5001/reset'</msg>
+<arg>${RESET_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-17T21:47:53.689137" elapsed="0.572557"/>
+</kw>
 <kw name="Go To" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:24:58.760464" level="INFO">Opening url 'http://localhost:5001'</msg>
+<msg time="2025-11-17T21:47:54.263369" level="INFO">Opening url 'http://localhost:5001'</msg>
 <arg>${HOME_URL}</arg>
 <doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2025-11-17T20:24:58.760271" elapsed="0.577650"/>
-</kw>
-<kw name="Page Should Not Contain" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:25:00.892344" level="INFO">Current page does not contain text 'nappia painettu 0 kertaa'.</msg>
-<arg>nappia painettu 0 kertaa</arg>
-<doc>Verifies the current page does not contain ``text``.</doc>
-<status status="PASS" start="2025-11-17T20:24:59.338439" elapsed="1.554218"/>
+<status status="PASS" start="2025-11-17T21:47:54.262464" elapsed="0.536560"/>
 </kw>
 <kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:25:00.893498" level="INFO">Clicking button 'Nollaa'.</msg>
+<msg time="2025-11-17T21:47:54.801109" level="INFO">Clicking button 'Paina'.</msg>
+<arg>Paina</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-17T21:47:54.800116" elapsed="2.141688"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:47:56.943151" level="INFO">Clicking button 'Paina'.</msg>
+<arg>Paina</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-17T21:47:56.942591" elapsed="2.118765"/>
+</kw>
+<kw name="Page Should Not Contain" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:48:00.616346" level="INFO">Current page does not contain text 'nappia painettu 0 kertaa'.</msg>
+<arg>nappia painettu 0 kertaa</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<status status="PASS" start="2025-11-17T21:47:59.062398" elapsed="1.554216"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:48:00.617699" level="INFO">Clicking button 'Nollaa'.</msg>
 <arg>Nollaa</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-17T20:25:00.893093" elapsed="2.171438"/>
+<status status="PASS" start="2025-11-17T21:48:00.617180" elapsed="2.128742"/>
 </kw>
 <kw name="Page Should Contain" owner="SeleniumLibrary">
-<msg time="2025-11-17T20:25:04.094494" level="INFO">Current page contains text 'nappia painettu 0 kertaa'.</msg>
+<msg time="2025-11-17T21:48:03.774295" level="INFO">Current page contains text 'nappia painettu 0 kertaa'.</msg>
 <arg>nappia painettu 0 kertaa</arg>
 <doc>Verifies that current page contains ``text``.</doc>
-<status status="PASS" start="2025-11-17T20:25:03.065501" elapsed="1.029653"/>
+<status status="PASS" start="2025-11-17T21:48:02.747018" elapsed="1.027609"/>
 </kw>
-<status status="PASS" start="2025-11-17T20:24:58.759782" elapsed="5.335950"/>
+<status status="PASS" start="2025-11-17T21:47:53.688655" elapsed="10.086965"/>
 </test>
 <kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2025-11-17T20:25:04.096731" elapsed="0.561374"/>
+<status status="PASS" start="2025-11-17T21:48:03.777194" elapsed="0.560772"/>
 </kw>
-<status status="PASS" start="2025-11-17T20:24:58.150173" elapsed="6.508160"/>
+<status status="PASS" start="2025-11-17T21:47:53.284138" elapsed="11.054050"/>
 </suite>
-<status status="PASS" start="2025-11-17T20:24:48.740805" elapsed="15.919349"/>
+<suite id="s1-s3" name="Setvalue" source="/home/kuhville/Documents/OhTu/webcounter/src/tests/setvalue.robot">
+<kw name="Open And Configure Browser" owner="resource" type="SETUP">
+<if>
+<branch type="IF" condition="$BROWSER == 'chrome'">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-11-17T21:48:04.344965" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x75452789a750&gt;</msg>
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-11-17T21:48:04.344526" elapsed="0.000497"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--incognito</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-11-17T21:48:04.345226" elapsed="0.000228"/>
+</kw>
+<status status="PASS" start="2025-11-17T21:48:04.344110" elapsed="0.001442"/>
+</branch>
+<branch type="ELSE IF" condition="$BROWSER == 'firefox'">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].FirefoxOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-11-17T21:48:04.345810" elapsed="0.000044"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--private-window</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-11-17T21:48:04.345996" elapsed="0.000038"/>
+</kw>
+<status status="NOT RUN" start="2025-11-17T21:48:04.345629" elapsed="0.000469"/>
+</branch>
+<status status="PASS" start="2025-11-17T21:48:04.344068" elapsed="0.002087"/>
+</if>
+<if>
+<branch type="IF" condition="$HEADLESS == 'true'">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>0.05 seconds</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="NOT RUN" start="2025-11-17T21:48:04.346612" elapsed="0.000054"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-11-17T21:48:04.346826" elapsed="0.000046"/>
+</kw>
+<status status="NOT RUN" start="2025-11-17T21:48:04.346244" elapsed="0.000701"/>
+</branch>
+<branch type="ELSE">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2025-11-17T21:48:04.347158" elapsed="0.000492"/>
+</kw>
+<status status="PASS" start="2025-11-17T21:48:04.347008" elapsed="0.000732"/>
+</branch>
+<status status="PASS" start="2025-11-17T21:48:04.346220" elapsed="0.001585"/>
+</if>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:48:04.348434" level="INFO">Opening browser 'chrome' to base url 'None'.</msg>
+<arg>browser=${BROWSER}</arg>
+<arg>options=${options}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-11-17T21:48:04.347991" elapsed="0.354513"/>
+</kw>
+<status status="PASS" start="2025-11-17T21:48:04.343795" elapsed="0.358903"/>
+</kw>
+<test id="s1-s3-t1" name="When value is set to 7 the value becomes 7" line="8">
+<kw name="Go To" owner="SeleniumLibrary" type="SETUP">
+<msg time="2025-11-17T21:48:04.703279" level="INFO">Opening url 'http://localhost:5001/reset'</msg>
+<arg>${RESET_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-17T21:48:04.703145" elapsed="0.570153"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:48:05.275059" level="INFO">Opening url 'http://localhost:5001'</msg>
+<arg>${HOME_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-17T21:48:05.274458" elapsed="0.540236"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:48:05.816431" level="INFO">Typing text '7' into text field 'value'.</msg>
+<arg>value</arg>
+<arg>7</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-17T21:48:05.815659" elapsed="1.637313"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:48:07.454824" level="INFO">Clicking button 'aseta'.</msg>
+<arg>aseta</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-17T21:48:07.454003" elapsed="1.624946"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2025-11-17T21:48:10.111328" level="INFO">Current page contains text 'nappia painettu 7 kertaa'.</msg>
+<arg>nappia painettu 7 kertaa</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2025-11-17T21:48:09.080139" elapsed="1.031467"/>
+</kw>
+<status status="PASS" start="2025-11-17T21:48:04.702781" elapsed="5.409292"/>
+</test>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2025-11-17T21:48:10.113004" elapsed="0.559257"/>
+</kw>
+<status status="PASS" start="2025-11-17T21:48:04.339911" elapsed="6.332513"/>
+</suite>
+<status status="PASS" start="2025-11-17T21:47:43.168430" elapsed="27.505020"/>
 </suite>
 <statistics>
 <total>
-<stat pass="3" fail="0" skip="0">All Tests</stat>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="Tests" id="s1" pass="3" fail="0" skip="0">Tests</stat>
+<stat name="Tests" id="s1" pass="4" fail="0" skip="0">Tests</stat>
 <stat name="Increment" id="s1-s1" pass="2" fail="0" skip="0">Tests.Increment</stat>
 <stat name="Reset" id="s1-s2" pass="1" fail="0" skip="0">Tests.Reset</stat>
+<stat name="Setvalue" id="s1-s3" pass="1" fail="0" skip="0">Tests.Setvalue</stat>
 </suite>
 </statistics>
 <errors>
